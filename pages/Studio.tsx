@@ -71,11 +71,11 @@ export const Studio: React.FC = () => {
                                 <OptimizedImage 
                                     src={member.image} 
                                     alt={member.name} 
-                                    className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" 
+                                    className="w-full h-full grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-500" 
                                 />
                              </div>
                              <div>
-                                 <h3 className="text-2xl font-display font-bold text-black dark:text-white mb-1 group-hover:text-neutral-500 dark:group-hover:text-neutral-400 transition-colors">{member.name}</h3>
+                                 <h3 className="text-2xl font-display font-bold text-black dark:text-white mb-1 md:group-hover:text-neutral-500 dark:md:group-hover:text-neutral-400 transition-colors">{member.name}</h3>
                                  <p className="text-sm font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">{member.role}</p>
                              </div>
                         </div>
