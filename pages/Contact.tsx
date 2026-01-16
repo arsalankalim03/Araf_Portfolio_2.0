@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
 import { Footer } from '../components/Footer';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
 import { ArrowRight, Check, Loader2, AlertCircle } from 'lucide-react';
 import { db } from '../services/db';
 

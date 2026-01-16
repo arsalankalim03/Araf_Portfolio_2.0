@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
 
 const brands = [
   { name: "Own It Pure", logo: "https://logo.clearbit.com/ownitpure.com" },

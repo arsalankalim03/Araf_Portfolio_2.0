@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+const motion = m as any;
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';

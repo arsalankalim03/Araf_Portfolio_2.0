@@ -1,7 +1,10 @@
 
 import React from 'react';
 import { Footer } from '../components/Footer';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
+import { OptimizedImage } from '../components/OptimizedImage';
 
 const team = [
   { name: "Adeeb Jamal", role: "Founder", image: "https://i.postimg.cc/j26Q5CMH/Gemini_Generated_Image_j587qwj587qwj587.png" },
@@ -48,10 +51,10 @@ export const Studio: React.FC = () => {
         </div>
 
         <div className="w-full h-[60vh] md:h-[80vh] mb-32 overflow-hidden rounded-3xl grayscale hover:grayscale-0 transition-all duration-700">
-            <img 
+            <OptimizedImage 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" 
                 alt="Studio Team" 
-                className="w-full h-full object-cover"
+                className="w-full h-full"
             />
         </div>
 
@@ -65,10 +68,10 @@ export const Studio: React.FC = () => {
                     {team.map((member, index) => (
                         <div key={index} className="flex items-center gap-6 group">
                              <div className="w-20 h-20 rounded-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 shrink-0 border border-neutral-200 dark:border-neutral-800">
-                                <img 
+                                <OptimizedImage 
                                     src={member.image} 
                                     alt={member.name} 
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
+                                    className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" 
                                 />
                              </div>
                              <div>

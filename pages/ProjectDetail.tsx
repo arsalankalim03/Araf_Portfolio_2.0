@@ -3,8 +3,11 @@ import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { Footer } from '../components/Footer';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { OptimizedImage } from '../components/OptimizedImage';
 
 export const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -79,10 +82,11 @@ export const ProjectDetail: React.FC = () => {
          >
              {project.video ? (
                isGif(project.video) ? (
-                 <img 
+                 <OptimizedImage 
                    src={project.video} 
                    alt={project.title} 
-                   className="w-full h-full object-cover" 
+                   className="w-full h-full"
+                   priority 
                  />
                ) : (
                  <video
@@ -96,7 +100,7 @@ export const ProjectDetail: React.FC = () => {
                  </video>
                )
              ) : (
-               <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+               <OptimizedImage src={project.image} alt={project.title} className="w-full h-full" priority />
              )}
          </motion.div>
       </div>

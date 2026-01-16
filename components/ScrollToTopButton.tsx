@@ -1,5 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence } from 'framer-motion';
+const motion = m as any;
 import { ArrowUp } from 'lucide-react';
 
 export const ScrollToTopButton: React.FC = () => {

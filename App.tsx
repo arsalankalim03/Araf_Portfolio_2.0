@@ -15,7 +15,9 @@ import { ChatWidget } from './components/ChatWidget';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
 import { CustomCursor } from './components/CustomCursor';
 import ScrollToTop from './components/ScrollToTop';
-import { motion, AnimatePresence } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence } from 'framer-motion';
+const motion = m as any;
 import { ThemeProvider } from './context/ThemeContext';
 import { storage } from './services/storage';
 

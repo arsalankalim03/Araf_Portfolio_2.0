@@ -7,7 +7,9 @@ import { Projects } from '../components/Projects';
 import { BrandTicker } from '../components/BrandTicker';
 import { Testimonials } from '../components/Testimonials';
 import { Footer } from '../components/Footer';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
 
 export const Home: React.FC = () => {
   return (

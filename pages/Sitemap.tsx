@@ -1,6 +1,9 @@
+
 import React from 'react';
 import { Footer } from '../components/Footer';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 

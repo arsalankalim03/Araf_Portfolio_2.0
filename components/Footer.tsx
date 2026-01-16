@@ -1,5 +1,8 @@
+
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+const motion = m as any;
 import { Instagram, Twitter, Linkedin, Briefcase, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -102,17 +105,17 @@ export const Footer: React.FC = () => {
                     {clients.map((client, index) => (
                       <div key={index} className="flex items-start lg:items-center">
                         <motion.h3 
-                          className="text-xl md:text-3xl font-display font-bold text-neutral-600 dark:text-neutral-300 cursor-default"
-                          initial={{ opacity: 0.6 }}
-                          whileHover={{ 
+                          className="text-xl md:text-3xl font-display font-bold text-neutral-500 md:text-neutral-600 dark:text-neutral-400 dark:md:text-neutral-300 cursor-default md:opacity-60 md:hover:opacity-100 transition-all"
+                          initial={{ opacity: 1 }}
+                          whileHover={typeof window !== 'undefined' && window.innerWidth >= 768 ? { 
                             scale: 1.05, 
-                            color: "currentColor", // Inherits text color which we will toggle with class if needed, but usually hover color is specific
+                            color: "currentColor", 
                             opacity: 1,
                             x: 10
-                          }}
+                          } : {}}
                           transition={{ duration: 0.2, ease: "easeOut" }}
                         >
-                          <span className="hover:text-white dark:hover:text-black transition-colors">
+                          <span className="md:hover:text-white dark:md:hover:text-black transition-colors">
                             {client}
                           </span>
                         </motion.h3>

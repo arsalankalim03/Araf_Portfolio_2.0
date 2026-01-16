@@ -1,10 +1,13 @@
 
 import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+const motion = m as any;
 import { projects } from '../data/projects';
 import { ArrowUpRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Project } from '../types';
+import { OptimizedImage } from './OptimizedImage';
 
 const ProjectItem: React.FC<{ project: Project; index: number; disableVideoHover?: boolean }> = ({ project, index, disableVideoHover }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -42,14 +45,15 @@ const ProjectItem: React.FC<{ project: Project; index: number; disableVideoHover
         onMouseLeave={handleMouseLeave}
       >
         <div className="relative overflow-hidden bg-neutral-200 dark:bg-neutral-900 aspect-[4/5] rounded-3xl">
-          {/* Base Image: Grayscale to Color transition */}
-          <motion.img
+          {/* Base Image: Using OptimizedImage for lazy loading and performance */}
+          <OptimizedImage
             src={project.image}
             alt={project.title}
-            className={`w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105 grayscale group-hover:grayscale-0 ${!disableVideoHover && isHovered && project.video ? 'opacity-0' : 'opacity-100'}`}
+            aspectRatio="aspect-[4/5]"
+            className={`w-full h-full transition-all duration-700 ease-in-out md:group-hover:scale-105 grayscale-0 md:grayscale md:group-hover:grayscale-0 ${!disableVideoHover && isHovered && project.video ? 'opacity-0' : 'opacity-100'}`}
           />
 
-          {/* Hover Video/GIF Asset: Only rendered if not disabled */}
+          {/* Hover Video/GIF Asset: Only rendered if not disabled and on likely desktop */}
           {!disableVideoHover && project.video && (
             <AnimatePresence>
               {isHovered && (
@@ -58,7 +62,7 @@ const ProjectItem: React.FC<{ project: Project; index: number; disableVideoHover
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0 z-0"
+                  className="absolute inset-0 z-0 hidden md:block"
                 >
                   {isGif ? (
                     <img 
@@ -81,17 +85,17 @@ const ProjectItem: React.FC<{ project: Project; index: number; disableVideoHover
             </AnimatePresence>
           )}
 
-          {/* Overlay: Subtle darkening on hover for the arrow visibility */}
-          <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors duration-500 z-10" />
+          {/* Overlay: Subtle darkening on hover only for Desktop */}
+          <div className="absolute inset-0 bg-transparent md:group-hover:bg-black/10 transition-colors duration-500 z-10" />
           
-          <div className="absolute top-6 right-6 bg-white text-black p-4 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 ease-out z-20">
+          <div className="absolute top-6 right-6 bg-white text-black p-4 rounded-full opacity-0 md:group-hover:opacity-100 transform translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out z-20 hidden md:flex">
             <ArrowUpRight size={28} />
           </div>
         </div>
 
         <div className="mt-6 flex justify-between items-start border-b border-neutral-300 dark:border-neutral-800 pb-4 transition-colors duration-500">
           <div>
-            <h3 className="text-3xl md:text-4xl font-display font-medium text-black dark:text-white mb-1 group-hover:text-neutral-500 dark:group-hover:text-neutral-300 transition-colors">{project.title}</h3>
+            <h3 className="text-3xl md:text-4xl font-display font-medium text-black dark:text-white mb-1 md:group-hover:text-neutral-500 dark:md:group-hover:text-neutral-300 transition-colors">{project.title}</h3>
             <p className="text-neutral-500 dark:text-zk-gray text-sm uppercase tracking-widest">{project.category}</p>
           </div>
           <span className="text-neutral-500 dark:text-zk-gray font-mono text-sm">{project.year}</span>
@@ -156,7 +160,7 @@ export const Projects: React.FC = () => {
         
         {!isWorkPage && (
           <div className="mt-24 text-center">
-             <Link to="/work" className="inline-block border border-neutral-300 dark:border-neutral-700 px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black text-black dark:text-white transition-colors duration-300">
+             <Link to="/work" className="inline-block border border-neutral-300 dark:border-neutral-700 px-8 py-4 rounded-full text-sm uppercase tracking-widest md:hover:bg-black dark:md:hover:bg-white md:hover:text-white dark:md:hover:text-black text-black dark:text-white transition-colors duration-300">
                View All Projects
              </Link>
           </div>

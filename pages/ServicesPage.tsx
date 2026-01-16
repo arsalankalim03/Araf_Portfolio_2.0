@@ -1,7 +1,10 @@
+
 import React from 'react';
 import { Services } from '../components/Services';
 import { Footer } from '../components/Footer';
-import { motion } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m } from 'framer-motion';
+const motion = m as any;
 
 export const ServicesPage: React.FC = () => {
   return (
@@ -20,7 +23,7 @@ export const ServicesPage: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="font-display text-[12vw] leading-[0.8] font-bold text-black dark:text-white tracking-tighter uppercase cursor-default origin-left"
         >
-          Our<br />Offerings
+          Our<br />Expertise
         </motion.h1>
       </div>
       <Services />

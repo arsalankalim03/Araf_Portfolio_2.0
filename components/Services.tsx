@@ -1,7 +1,11 @@
+
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+const motion = m as any;
 import { Plus, Minus } from 'lucide-react';
 import { Service } from '../types';
+import { useLocation } from 'react-router-dom';
 
 const services: Service[] = [
   { 
@@ -93,21 +97,36 @@ const ServiceItem: React.FC<{
 
 export const Services: React.FC = () => {
   const [activeId, setActiveId] = useState<number | null>(1);
+  const location = useLocation();
+  const isServicesPage = location.pathname === '/services';
 
   return (
     <section id="services" className="py-24 px-6 bg-neutral-100 dark:bg-neutral-950 transition-colors duration-500">
       <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-16">
          <div className="lg:col-span-1">
-            <motion.h2 
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.02, x: 10, color: "#a3a3a3", transition: { duration: 0.2 } }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-5xl md:text-7xl font-bold tracking-tighter text-black dark:text-white sticky top-32 cursor-default origin-left"
-            >
-              OUR<br/>EXPERTISE
-            </motion.h2>
+            {isServicesPage ? (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="sticky top-32"
+              >
+                <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 font-light leading-relaxed max-w-xs">
+                  We integrate design, technology, and strategy to build high-resonance digital ecosystems for ambitious brands.
+                </p>
+              </motion.div>
+            ) : (
+              <motion.h2 
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.02, x: 10, color: "#a3a3a3", transition: { duration: 0.2 } }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display text-5xl md:text-7xl font-bold tracking-tighter text-black dark:text-white sticky top-32 cursor-default origin-left"
+              >
+                OUR<br/>EXPERTISE
+              </motion.h2>
+            )}
          </div>
 
          <div className="lg:col-span-2 flex flex-col">

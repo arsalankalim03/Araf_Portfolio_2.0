@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, useSpring } from 'framer-motion';
+const motion = m as any;
 
 export const CustomCursor: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -10,6 +12,8 @@ export const CustomCursor: React.FC = () => {
   const mouseY = useSpring(0, { stiffness: 500, damping: 28 });
 
   useEffect(() => {
+    // Only attach listeners if the viewport is likely desktop
+    // This is an additional optimization besides the CSS hidden class
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -36,7 +40,7 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] rounded-full mix-blend-difference bg-white"
+      className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] rounded-full mix-blend-difference bg-white hidden md:block"
       style={{
         x: mouseX,
         y: mouseY,

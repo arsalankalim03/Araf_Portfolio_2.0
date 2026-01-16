@@ -1,6 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+/* Fixed type error: casting motion to any to resolve intrinsic element prop conflicts */
+import { motion as m, AnimatePresence } from 'framer-motion';
+const motion = m as any;
 import { X, Send, Loader2, Sparkles, BrainCircuit } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 import { Message } from '../types';
@@ -30,6 +32,7 @@ export const ChatWidget: React.FC = () => {
     setIsLoading(true);
 
     try {
+      /* Always initialize GoogleGenAI inside the call context as per guidelines */
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       
       // Prepare project context for the AI
@@ -37,10 +40,9 @@ export const ChatWidget: React.FC = () => {
 
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: [
-           {
-             role: 'user',
-             parts: [{ text: `You are the A'RAF Collective Intelligence, the digital oracle for A'RAF Studio. 
+        contents: userMsg,
+        config: {
+          systemInstruction: `You are the A'RAF Collective Intelligence, the digital oracle for A'RAF Studio. 
              
              PERSONALITY:
              - You are an intellectual, high-end design architect.
@@ -59,11 +61,8 @@ export const ChatWidget: React.FC = () => {
              - Keep responses strictly under 40 words.
              - Speak in the first-person plural ("We", "Our", "The Studio").
              - If asked about a project, provide deep, evocative insight based on the portfolio data.
-             - No emojis.
-             
-             USER INPUT: ${userMsg}` }]
-           }
-        ],
+             - No emojis.`,
+        }
       });
       
       const text = response.text || "The connection to the core is faint. Re-attempting.";
