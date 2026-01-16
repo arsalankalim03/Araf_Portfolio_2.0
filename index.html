@@ -59,20 +59,27 @@
         opacity: 0.03;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .animate-shimmer {
+        animation: shimmer 2s infinite;
+      }
     </style>
   <script type="importmap">
 {
   "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
     "framer-motion": "https://esm.sh/framer-motion@^12.26.2",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.36.0",
-    "vite": "https://esm.sh/vite@^7.3.1",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "react-intersection-observer": "https://esm.sh/react-intersection-observer@^9.15.1"
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "react-intersection-observer": "https://esm.sh/react-intersection-observer@^10.0.2"
   }
 }
 </script>
@@ -80,6 +87,7 @@
   <body class="bg-zk-white text-zk-black dark:bg-zk-black dark:text-f0f0f0 transition-colors duration-500">
     <div id="root"></div>
     <div class="noise"></div>
-    <script type="module" src="/index.tsx"></script>
+    <!-- Pointing to relative path for better resolution during build -->
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

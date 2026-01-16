@@ -13,20 +13,20 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@google/genai": "^1.30.0",
-    "framer-motion": "^12.23.24",
-    "lucide-react": "^0.454.0",
+    "@google/genai": "^1.36.0",
+    "framer-motion": "^12.4.7",
+    "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-intersection-observer": "^9.15.1",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^7.1.5"
   },
   "devDependencies": {
     "@types/node": "^22.13.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.4"
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
   }
 }
