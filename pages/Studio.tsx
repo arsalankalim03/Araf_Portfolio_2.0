@@ -50,7 +50,8 @@ export const Studio: React.FC = () => {
             </div>
         </div>
 
-        <div className="w-full h-[60vh] md:h-[80vh] mb-32 overflow-hidden rounded-3xl grayscale hover:grayscale-0 transition-all duration-700">
+        {/* Updated Cover Image: Full color on mobile, grayscale/hover on md+ */}
+        <div className="w-full h-[60vh] md:h-[80vh] mb-32 overflow-hidden rounded-3xl grayscale-0 md:grayscale md:hover:grayscale-0 transition-all duration-700">
             <OptimizedImage 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" 
                 alt="Studio Team" 
